@@ -25,7 +25,8 @@ namespace serverDemo.Controllers
         //{
         //    return "成功連結course route...";
         //}
-        // GET: api/<CourseController>
+
+        //獲得系統中的所有課程
         [HttpGet]
         public IActionResult Get()
         {
@@ -39,7 +40,7 @@ namespace serverDemo.Controllers
             return Ok(result);
         }
 
-        // GET api/<CourseController>/5
+        //用課程id尋找課程
         [HttpGet("{id}")]
         public IActionResult GetCourseByID(Guid id)
         {
@@ -53,7 +54,7 @@ namespace serverDemo.Controllers
             return Ok(result);
         }
 
-
+        //用課程名稱尋找課程
         [HttpGet("findByName/{name}")]
         public IActionResult GetCourseByName(string name)
         {
@@ -67,6 +68,7 @@ namespace serverDemo.Controllers
             return Ok(result);
         }
 
+        //用講師id來尋找課程
         [HttpGet("instructor/{_instructor_id}")]
         public IActionResult GetCourseByTeacher(Guid _instructor_id)
         {
@@ -80,6 +82,7 @@ namespace serverDemo.Controllers
             return Ok(result);
         }
 
+        //用學生id來尋找註冊過的課程
         [HttpGet("student/{_student_id}")]
         public IActionResult GetCourseByStudent(Guid _student_id)
         {
@@ -93,7 +96,7 @@ namespace serverDemo.Controllers
             return Ok(result);
         }
 
-        // POST api/<CourseController>
+        //新增課程
         [Authorize(Roles = "instructor")]
         [HttpPost]
         public IActionResult PostCourse([FromBody] CourseDto value)
@@ -111,6 +114,7 @@ namespace serverDemo.Controllers
             return StatusCode(500, "無法創建課程。。。");
         }
 
+        //讓學生透過id來註冊新課程
         [Authorize(Roles = "student")]
         [HttpPost("enroll/{id}")]
         public IActionResult enroll(Guid id)
@@ -122,6 +126,7 @@ namespace serverDemo.Controllers
             return StatusCode(500, "無法註冊課程。。。");
         }
 
+        //更改課程
         [Authorize(Roles = "instructor")]
         [HttpPut("{id}")]
         public IActionResult Put(Guid id, [FromBody] CourseDto value)
